@@ -691,16 +691,29 @@ FUNCTION {format.url}
   if$
 }
 
+% FUNCTION {format.eprint}
+% { eprint empty$
+%     { "" }
+%     { archivePrefix empty$
+%         { "" }
+%         { archivePrefix "arXiv" =
+%         {new.block "\doarXiv{" eprint * "}" * }
+%         {new.block "\doeprint{" eprint * "}" * }
+%         if$}
+%       if$
+%     }
+%   if$
+% }
+
 FUNCTION {format.eprint}
 { eprint empty$
     { "" }
     { archivePrefix empty$
         { "" }
-        { archivePrefix "arXiv" =
-        {new.block "\doarXiv{" eprint * "}" * }
-        {new.block "\doeprint{" eprint * "}" * }
-        if$}
+        { archivePrefix ":" * }
       if$
+      eprint field.or.null
+      *
     }
   if$
 }
@@ -718,13 +731,20 @@ FUNCTION {format.doi}
   if$
 }
 
+%FUNCTION {format.pid}
+%{ doi empty$
+%  {eprint empty$ 
+%     { "" }
+%     { format.eprint }
+%    if$}
+%  { format.doi }
+%  if$
+%}
+
 FUNCTION {format.pid}
-{ doi empty$
-  {eprint empty$ 
-     { "" }
-     { format.eprint }
-    if$}
+{ eprint empty$
   { format.doi }
+    { format.eprint }
   if$
 }
 
@@ -1290,7 +1310,7 @@ FUNCTION {incollection}
 %    }
 %  if$
   format.pages "pages" output.check
-%  format.pid output
+  format.pid output
   format.url output
   fin.entry
 }
@@ -1319,7 +1339,7 @@ FUNCTION {inproceedings}
 %    }
 %  if$
   format.pages output
-%  format.pid output
+  format.pid output
   format.url output
   fin.entry
 }
@@ -1337,7 +1357,7 @@ FUNCTION {manual}
   format.edition output
   organization output
   address output
-%  format.pid output
+  format.pid output
 %%  format.url output
   fin.entry
 }
@@ -1353,7 +1373,7 @@ FUNCTION {mastersthesis}
   bbl.mthesis format.thesis.type output.nonnull
   school "school" output.check
   address output
-%  format.pid output
+  format.pid output
   format.url output
   fin.entry
 }
@@ -1394,7 +1414,7 @@ FUNCTION {phdthesis}
   bbl.phdthesis format.thesis.type output.nonnull
   school "school" output.check
   address output
-%  format.pid output
+  format.pid output
   format.url output
   fin.entry
 }
@@ -1428,7 +1448,7 @@ FUNCTION {proceedings}
 %  organization output
 %  publisher output
   format.pages output
-%  format.url output
+  format.url output
   fin.entry
 }
 
