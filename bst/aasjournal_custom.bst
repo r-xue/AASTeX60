@@ -1,6 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% change.Log
-%%  * 09/10/2018:  rx   comment out "format.pid output"/"format.url output"
+%%  * 09/10/2018:  rx   remove DOI links
+%%                      add back arXiv number
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%
@@ -1195,10 +1196,10 @@ FUNCTION {article}
     }
   if$
   pages empty$
-    'skip$
+    { format.pid output }
     { format.journal.pages }
   if$
-%  format.pid output
+% format.pid output
   fin.entry
 }
 
